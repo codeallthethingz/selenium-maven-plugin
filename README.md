@@ -17,7 +17,7 @@ don't nest your folders)
 	     	
 We didn't save the test suites as maven takes care of finding your tests.
 
-The selenium4j.properties contains setup information about which browser:
+The selenium4j.properties contains setup information about:
 
 	# the web site being tested
 	webSite=http://yourwebapp:8080
