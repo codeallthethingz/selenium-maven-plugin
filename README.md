@@ -17,10 +17,29 @@ don't nest your folders)
 	     	
 We didn't save the test suites.  They're not needed as maven takes care of finding your tests.
 
+The selenium4j.properties contains:
+
+	# the web site being tested
+	webSite=http://yourwebapp:8080
+	
+	# A comma separated values of the WebDrivers being used. Accepted drivers: 
+	# HtmlUnitDriver, FirefoxDriver, ChromeDriver, InternetExplorerDriver
+	driver=FirefoxDriver
+	        
+	# How many times we want to iterate and test
+	loopCount=1
+
 The selenium maven plugin which is bound to the process-test-resources, then converts these
 html files into junit 4 tests in your src/test/java folder.
 
-Nifty.
+So you end up with:
+
+	./src/test/java
+	    |-signin
+	    	|-firefox
+	            |-TestLoginGoodPasswordSmoke.java
+	     	    |-TestLoginBadPasswordSmoke.java
+	     	    
 
 Setup
 -----
