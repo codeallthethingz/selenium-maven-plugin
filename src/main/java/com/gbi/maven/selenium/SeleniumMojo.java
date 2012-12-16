@@ -25,7 +25,9 @@ public class SeleniumMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException {
 		getLog().info("reading selenium tests from: " + seleniumTestDir);
 		getLog().info("outputting unit test to: " + testSourceDirectory);
-
+		if (System.getProperty("smoke") == null){
+			getLog().warn("smoke system property not set so these tests will not run, use -Dsmoke");
+		}
 		Transformer.TEST_BUILD_DIR = testSourceDirectory;
 		Transformer.TEST_DIR = seleniumTestDir;
 		try {

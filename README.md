@@ -4,6 +4,8 @@ Selenium Maven Plugin
 This project builds upon the work of http://code.google.com/p/selenium4j 
 
 Selenium4j is ant based, and we wanted a maven based approach to running our selenium tests.
+Currently this is only tested on windows. (and in fact we use a specific windows tool - pskill - 
+so we guarantee it won't work correctly on linux (fork away ;)) 
 
 We use selenium IDE to record our tests.  We then saved the test cases into our project 
 in the following fashion: (Note: currently the code from selenium4j only suports one level, so 
@@ -51,7 +53,7 @@ Now the fun of integrating the needed xml into your pom.
 		<dependency>
 			<groupId>com.gbi.maven</groupId>
 			<artifactId>selenium-maven-plugin</artifactId>
-			<version>1.0</version>
+			<version>1.0.2</version>
 			<scope>test</scope>
 		</dependency>
 	
@@ -82,7 +84,7 @@ seems to work.
 		<plugin>
 			<groupId>com.gbi.maven</groupId>
 			<artifactId>selenium-maven-plugin</artifactId>
-			<version>1.0</version>
+			<version>1.0.2</version>
 			<executions>
 				<execution>
 					<phase>process-test-resources</phase>
@@ -96,72 +98,27 @@ seems to work.
 		
 You should now be able to run
 
-	mvn clean compile test 
+	mvn clean compile test -Dsmoke
 	
 and have the plugin compile your selenium tests into junit tests and then have maven run them.
 
 Separating your Smoke tests
 ---------------------------
 
-We named all our selenium HTML tests with a Smoke.html extension.  That way, we were
-able to separate the selenium tests into a profile, to ensure surefire 
-didn't run them with the rest of the unit tests.
+Smoke tests are automatically separated out from your unit tests with the assume junit method.  
 
-
-Step 1, turn off surefire tests for matches against Smoke.java
-
-	<build>
-		...
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>**/*Smoke.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		...
-		</plugins>
-		...
-	</build>
-	
-	
-Step 2, turn on tests for a smoke specific profile (we also turned off the unit tests)
-
-	<profiles>
-		<profile>
-			<activation>
-				<property>
-					<name>smoke</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<excludes>
-								<exclude>**/*Test.java</exclude>
-							</excludes>
-							<includes>
-								<include>**/*Smoke.java</include>
-							</includes>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	
-
-Now you can run
+You can run
 
 	mvn test -Dsmoke
 	
-and you should only run your smoke tests.
+and this will run your unit tests and smoke tests.
+
+For those that are interested, this is separation is done with the setup method:
+
+	@Before
+	public void before() {
+		org.junit.Assume.assumeTrue(null != System.getProperty("smoke"));
+	}
 
 Maven Configuration
 -------------------

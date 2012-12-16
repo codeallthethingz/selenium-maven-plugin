@@ -49,7 +49,8 @@ public class Transformer {
 
 	private static String getFileNameNoSuffix(File f) {
 		String fileName = f.getName();
-		return fileName.substring(0, fileName.lastIndexOf('.'));
+		fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+		return fileName;
 
 	}
 
@@ -87,7 +88,6 @@ public class Transformer {
 		String packName = dir.getName();
 
 		for (File f : files) {
-			logger.info("Processing: " + f.getName());
 			StringBuilder sb = new StringBuilder();
 			String className = getFileNameNoSuffix(f);
 			Collection<Command> cmds = TestParser.parseHTML(f);
@@ -103,6 +103,8 @@ public class Transformer {
 			classBean.setMethodBody(sb.toString());
 			classBean.setWebSite(velocityBean.getWebsite());
 			writeTestFile(dir, methodReader, classBean, velocityBean);
+			logger.info("Processed: " + f.getName() + " --> "
+					+ classBean.getClassName());
 		}
 
 		// createAllTests(classBeans, velocityBean, packName, dir.getName());
@@ -111,8 +113,9 @@ public class Transformer {
 	}
 
 	private String clean(String pClassName) {
-		return StringUtils.capitalize(pClassName.replaceAll("[^a-z^A-Z^0-9]",
-				""));
+		String className = StringUtils.capitalize(pClassName.replaceAll(
+				"[^a-z^A-Z^0-9]", ""));
+		return className + "Test";
 	}
 
 	private String getPopulatedCmd(String className, String cmdStr,

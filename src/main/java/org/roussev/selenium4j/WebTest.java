@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,8 +16,18 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class WebTest {
 
+	private static final Logger log = Logger.getLogger(WebTest.class);
+
 	private WebDriverBackedSelenium selenium;
 	private String driver = null;
+
+	@Before
+	public void before() {
+		if (System.getProperty("smoke") == null) {
+			log.info("skipping test, smoke not set");
+		}
+		org.junit.Assume.assumeTrue(null != System.getProperty("smoke"));
+	}
 
 	protected void startSelenium(String pDriver) {
 		WebDriver webDriver = null;

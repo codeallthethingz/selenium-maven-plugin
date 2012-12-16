@@ -3,37 +3,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gbi.maven</groupId>
 	<artifactId>selenium-maven-plugin</artifactId>
-	<version>1.0</version>
+	<version>1.0.2</version>
 	<packaging>maven-plugin</packaging>
 	<name>Selenium Maven Mojo</name>
-	<profiles>
-		<profile>
-			<activation>
-				<property>
-					<name>smoke</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.gbi.maven</groupId>
-						<artifactId>selenium-maven-plugin</artifactId>
-						<version>1.0</version>
-						<executions>
-							<execution>
-								<phase>process-test-resources</phase>
-								<goals>
-									<goal>generate-selenium-tests</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
 
-		</profile>
-	</profiles>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.gbi.maven</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
+					<execution>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>generate-selenium-tests</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
