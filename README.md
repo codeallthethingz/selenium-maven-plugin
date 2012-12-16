@@ -5,7 +5,7 @@ This project builds upon the work of http://code.google.com/p/selenium4j
 
 Selenium4j is ant based, and we wanted a maven based approach to running our selenium tests.
 
-We use selenium IDE to record our tests.  We then save the test cases into our project 
+We use selenium IDE to record our tests.  We then saved the test cases into our project 
 in the following fashion: (Note: currently the code from selenium4j only suports one level, so 
 don't nest your folders)
 
@@ -15,9 +15,9 @@ don't nest your folders)
 	     	|-TestLoginBadPasswordSmoke.html
 	     	|-selenium4j.properties
 	     	
-We didn't save the test suites.  They're not needed as maven takes care of finding your tests.
+We didn't save the test suites as maven takes care of finding your tests.
 
-The selenium4j.properties contains:
+The selenium4j.properties contains setup information about which browser:
 
 	# the web site being tested
 	webSite=http://yourwebapp:8080
@@ -29,7 +29,7 @@ The selenium4j.properties contains:
 	# How many times we want to iterate and test
 	loopCount=1
 
-The selenium maven plugin which is bound to the process-test-resources, then converts these
+The selenium maven plugin, which is bound to the process-test-resources phase, then converts these
 html files into junit 4 tests in your src/test/java folder.
 
 So you end up with:
@@ -44,6 +44,8 @@ So you end up with:
 Setup
 -----
 
+Now the fun of integrating the needed xml into your pom.
+
 1. Add the selenium-maven-plugin library to your pom.
 
 		<dependency>
@@ -53,18 +55,21 @@ Setup
 			<scope>test</scope>
 		</dependency>
 	
-	The jar isn't in a repository anywhere so you can either use it with a 
+	The jar isn't in a public repository so you can either use it with a 
 	
-		<systemPath>../path/to/jarfile.jar</systemPath>
+		<systemPath>/path/to/jarfile.jar</systemPath>
 		
 	or download the source and install it into your local repository with the command
 	
 	    mvn install 
+	    
+	As github just removed file downloads, looks like its going to be the second option.
 
-2. Make sure you have these in your path if you intend to use chrome or IE - firefox just 
+2. Make sure you have these browser drivers in your path if you intend to use chrome or IE - firefox just 
 seems to work.
 	
 	http://code.google.com/p/selenium/wiki/InternetExplorerDriver
+
 	http://code.google.com/p/selenium/wiki/ChromeDriver
 
 3. Bind the selenium plugin to the process-test-resources phase
@@ -84,13 +89,19 @@ seems to work.
 			</executions>
 		</plugin>
 		...</plugins></build>
+		
+You should now be able to run
+
+	mvn clean compile test 
+	
+and have the plugin compile your selenium tests into junit tests and then have maven run them.
 
 Separating your Smoke tests
 ---------------------------
 
 We named all our selenium HTML tests with a Smoke.html extension.  That way, we were
-able to separate the selenium tests into a profile run of surefire so 
-they didn't run with the rest of the unit tests.
+able to separate the selenium tests into a profile, to ensure surefire 
+didn't run them with the rest of the unit tests.
 
 
 Step 1, turn off surefire tests for matches against Smoke.java
@@ -141,7 +152,13 @@ Step 2, turn on tests for a smoke specific profile (we also turned off the unit 
 		</profile>
 	</profiles>
 	
+
+Now you can run
+
+	mvn test -Dsmoke
 	
+and you should only run your smoke tests.
+
 Maven Configuration
 -------------------
 
