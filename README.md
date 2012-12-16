@@ -72,7 +72,11 @@ seems to work.
 
 	http://code.google.com/p/selenium/wiki/ChromeDriver
 
-3. Bind the selenium plugin to the process-test-resources phase
+3. To make sure the browsers get killed after each test make sure pskill is on your path
+
+	http://live.sysinternals.com/pskill.exe
+
+4. Bind the selenium plugin to the process-test-resources phase
 
 		<build><plugins>...
 		<plugin>
