@@ -13,8 +13,8 @@ don't nest your folders)
 
 	./src/test/selenium
 	    |-signin
-	        |-TestLoginGoodPasswordSmoke.html
-	     	|-TestLoginBadPasswordSmoke.html
+	        |-LoginGoodPassword.html
+	     	|-LoginBadPassword.html
 	     	|-selenium4j.properties
 	     	
 We didn't save the test suites as maven takes care of finding your tests.
@@ -39,8 +39,8 @@ So you end up with:
 	./src/test/java
 	    |-signin
 	    	|-firefox
-	            |-TestLoginGoodPasswordSmoke.java
-	     	    |-TestLoginBadPasswordSmoke.java
+	            |-LoginGoodPasswordTest.java
+	     	    |-LoginBadPasswordTest.java
 	     	    
 
 Setup
@@ -102,6 +102,8 @@ You should now be able to run
 	
 and have the plugin compile your selenium tests into junit tests and then have maven run them.
 
+If the -Dsmoke is not present, all smoke tests will be skipped.
+
 Separating your Smoke tests
 ---------------------------
 
@@ -113,7 +115,7 @@ You can run
 	
 and this will run your unit tests and smoke tests.
 
-For those that are interested, this is separation is done with the setup method:
+For those that are interested, this separation is done with the setup method:
 
 	@Before
 	public void before() {
