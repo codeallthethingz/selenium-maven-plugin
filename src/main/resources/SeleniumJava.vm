@@ -1,0 +1,17 @@
+package $packageName;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.roussev.selenium4j.WebTest;
+
+public class $className extends WebTest {
+  
+    @Test
+  	public void testMethod() throws Exception {
+  		startSelenium("$driver");
+  		session().open("$webSite");
+		$methodBody
+  	}	
+  
+}
