@@ -1,29 +1,55 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.gbi.maven</groupId>
+	<groupId>com.wonderant</groupId>
 	<artifactId>selenium-maven-plugin</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<packaging>maven-plugin</packaging>
 	<name>Selenium Maven Mojo</name>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.gbi.maven</groupId>
-				<artifactId>selenium-maven-plugin</artifactId>
-				<version>1.0.2</version>
-				<executions>
-					<execution>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>generate-selenium-tests</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+	<description>Mojo to generate unit tests from selenium IDE html files</description>
+	<url>https://github.com/willwarren/selenium-maven-plugin</url>
+	<scm>
+		<connection>scm:git:git@github.com:willwarren/selenium-maven-plugin.git</connection>
+		<url>scm:git:git@github.com:willwarren/selenium-maven-plugin.git</url>
+	</scm>
+	<developers>
+		<developer>
+			<email>wwarren@wonderant.com</email>
+			<name>Will Warren</name>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>WTFPL</name>
+			<url>http://en.wikipedia.org/wiki/WTFPL</url>
+		</license>
+	</licenses>
+	<profiles>
+		<profile>
+			<activation>
+				<property>
+					<name>internal</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.wonderant</groupId>
+						<artifactId>selenium-maven-plugin</artifactId>
+						<version>1.0.3</version>
+						<executions>
+							<execution>
+								<phase>process-test-resources</phase>
+								<goals>
+									<goal>generate-selenium-tests</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
