@@ -1,4 +1,4 @@
-package com.gbi.maven.selenium;
+package com.wonderant.maven.selenium;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
