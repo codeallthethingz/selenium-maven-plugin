@@ -29,7 +29,7 @@ public class WebTest {
 		org.junit.Assume.assumeTrue(null != System.getProperty("smoke"));
 	}
 
-	protected void startSelenium(String pDriver) {
+	protected void startSelenium(String pDriver, String pWebsite) {
 		WebDriver webDriver = null;
 		driver = pDriver;
 		if (FirefoxDriver.class.getSimpleName().equals(pDriver)) {
@@ -49,8 +49,7 @@ public class WebTest {
 					+ "' is not supported.");
 		}
 
-		selenium = new WebDriverBackedSelenium(webDriver,
-				"http://localhost:21110");
+		selenium = new WebDriverBackedSelenium(webDriver, pWebsite);
 	}
 
 	public WebDriverBackedSelenium session() {
