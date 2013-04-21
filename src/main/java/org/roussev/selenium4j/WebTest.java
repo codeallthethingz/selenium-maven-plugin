@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -74,7 +75,11 @@ public class WebTest {
 			List<String> browserExes = getBrowserExe();
 			if (browserExes != null) {
 				for (String browserExe : browserExes) {
-					Runtime.getRuntime().exec("pskill " + browserExe);
+					if (SystemUtils.IS_OS_WINDOWS){
+						Runtime.getRuntime().exec("pskill " + browserExe);
+					} else {
+						Runtime.getRuntime().exec("killall " + browserExe);						
+					}
 				}
 			}
 		} catch (IOException e) {

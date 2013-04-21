@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * 
  * <p>
+ * 
  * @author Atanas Roussev (http://www.roussev.org)
  */
 class TestParser {
@@ -80,7 +83,8 @@ class TestParser {
 		line = line.trim();
 		line = line.substring(4);
 		line = line.substring(0, line.length() - 5);
-		return line;
+		return StringEscapeUtils.unescapeHtml(StringEscapeUtils
+				.unescapeHtml(line));
 	}
 
 }
