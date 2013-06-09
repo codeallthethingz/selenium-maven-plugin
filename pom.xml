@@ -24,6 +24,12 @@
 			<url>http://en.wikipedia.org/wiki/WTFPL</url>
 		</license>
 	</licenses>
+	
+	<properties>
+		<java.version>1.5</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
 	<profiles>
 		<profile>
 			<activation>
@@ -50,6 +56,7 @@
 			</build>
 		</profile>
 	</profiles>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -92,4 +99,19 @@
 			<version>2.32.0</version>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
