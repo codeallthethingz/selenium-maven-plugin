@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.roussev.selenium4j.WebTest;
 
+@SuppressWarnings("all")
 public class $className extends WebTest {
   
     @Test
