@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringEscapeUtils;
  */
 class TestParser {
 
+	@SuppressWarnings("resource")
 	static Collection<File> parseSuite(File suiteFile) throws Exception {
 
 		String line;
@@ -39,6 +40,7 @@ class TestParser {
 		return testFiles;
 	}
 
+	@SuppressWarnings("resource")
 	static Collection<Command> parseHTML(File testHtml) throws Exception {
 		String line;
 
