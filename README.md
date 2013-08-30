@@ -4,18 +4,20 @@ Selenium Maven Plugin
 This project builds upon the work of http://code.google.com/p/selenium4j 
 
 Selenium4j is ant based, and we wanted a maven based approach to running our selenium tests.
-Currently this is only tested on windows. (and in fact we use a specific windows tool - pskill - 
-so we guarantee it won't work correctly on linux (fork away ;)) 
+This works on windows and is running our nightly smoke tests on CentOS.
 
 We use selenium IDE to record our tests.  We then saved the test cases into our project 
-in the following fashion: (Note: currently the code from selenium4j only suports one level, so 
-don't nest your folders)
+in the following fashion: 
+Note: 
+- currently the code from selenium4j only suports one level, so 
+don't nest your folders
+- Name your files alphabetically as that guarantees the order they will be run in.
 
 	./src/test/selenium
-	    |-signin
-	        |-LoginGoodPassword.html
-	     	|-LoginBadPassword.html
-	     	|-selenium4j.properties
+	    |-aSetup
+	        |-ALoginGoodPassword.html
+	        |-BLoginBadPassword.html
+	        |-selenium4j.properties
 	     	
 We didn't save the test suites as maven takes care of finding your tests.
 
@@ -37,10 +39,10 @@ html files into junit 4 tests in your src/test/java folder.
 So you end up with:
 
 	./src/test/java
-	    |-signin
+	    |-aSetup
 	    	|-firefox
-	            |-LoginGoodPasswordTest.java
-	     	    |-LoginBadPasswordTest.java
+	            |-ALoginGoodPasswordTest.java
+	     	    |-BLoginBadPasswordTest.java
 	     	    
 
 Setup
