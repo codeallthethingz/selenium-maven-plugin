@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.wonderant</groupId>
 	<artifactId>selenium-maven-plugin</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<packaging>maven-plugin</packaging>
 	<name>Selenium Maven Mojo</name>
 	<description>Mojo to generate unit tests from selenium IDE html files</description>
@@ -18,6 +18,9 @@
 			<name>Will Warren</name>
 		</developer>
 	</developers>
+	<properties>
+		<seleniumVersion>2.37.1</seleniumVersion>
+	</properties>
 	<licenses>
 		<license>
 			<name>WTFPL</name>
@@ -36,7 +39,7 @@
 					<plugin>
 						<groupId>com.wonderant</groupId>
 						<artifactId>selenium-maven-plugin</artifactId>
-						<version>1.0.3</version>
+						<version>${project.version}</version>
 						<executions>
 							<execution>
 								<phase>process-test-resources</phase>
@@ -45,11 +48,46 @@
 								</goals>
 							</execution>
 						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>org.seleniumhq.selenium</groupId>
+								<artifactId>selenium-java</artifactId>
+								<version>${seleniumVersion}</version>
+							</dependency>
+							<dependency>
+								<groupId>org.seleniumhq.selenium</groupId>
+								<artifactId>selenium-ie-driver</artifactId>
+								<version>${seleniumVersion}</version>
+							</dependency>
+							<dependency>
+								<groupId>org.seleniumhq.selenium</groupId>
+								<artifactId>selenium-firefox-driver</artifactId>
+								<version>${seleniumVersion}</version>
+							</dependency>
+							<dependency>
+								<groupId>org.seleniumhq.selenium</groupId>
+								<artifactId>selenium-chrome-driver</artifactId>
+								<version>${seleniumVersion}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -74,22 +112,26 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>2.34.0</version>
+			<version>${seleniumVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-ie-driver</artifactId>
-			<version>2.34.0</version>
+			<version>${seleniumVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-firefox-driver</artifactId>
-			<version>2.34.0</version>
+			<version>${seleniumVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-chrome-driver</artifactId>
-			<version>2.34.0</version>
+			<version>${seleniumVersion}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

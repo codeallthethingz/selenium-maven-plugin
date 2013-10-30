@@ -32,21 +32,17 @@ public class CommandToMethodTranslator {
 	private static void init() {
 		Class<Selenium> selC = Selenium.class;
 		for (Method m : selC.getMethods()) {
-			if ("void".equals(m.getReturnType().toString())
-					|| "boolean".equals(m.getReturnType().toString())
-					|| m.getReturnType().isAssignableFrom(String.class)) {
-				Class<?>[] types = m.getParameterTypes();
-				if (types.length == 0) {
-					methods.put(m.getName(), m);
+			Class<?>[] types = m.getParameterTypes();
+			if (types.length == 0) {
+				methods.put(m.getName(), m);
+				continue;
+			}
+			for (Class<?> t : types) {
+				if (!t.isAssignableFrom(String.class)) {
 					continue;
 				}
-				for (Class<?> t : types) {
-					if (!t.isAssignableFrom(String.class)) {
-						continue;
-					}
-				}
-				methods.put(m.getName(), m);
 			}
+			methods.put(m.getName(), m);
 		}
 	}
 
@@ -91,7 +87,12 @@ public class CommandToMethodTranslator {
 	private static String _compareLeftRight(Method m, Command c) {
 		boolean noArgs = m.getParameterTypes().length == 0;
 		String left = noArgs ? c.getTarget() : c.getValue();
-		return "\"" + filter(left) + "\", " + _session_getMethod(m, c);
+		return isNumber(m) + filter(left) + isNumber(m) + ", "
+				+ _session_getMethod(m, c);
+	}
+
+	private static String isNumber(Method m) {
+		return m.getReturnType() == Number.class ? "" : "\"";
 	}
 
 	private static String _for_block(String condition, Command c) {
@@ -107,7 +108,7 @@ public class CommandToMethodTranslator {
 				+ TIMEOUT + ");" + "\n\t\t}";
 	}
 
-	private static String discoveryCustom(Command c) {
+	public static String discoveryCustom(Command c) {
 
 		String result = null;
 
