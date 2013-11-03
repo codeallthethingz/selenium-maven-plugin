@@ -147,6 +147,9 @@ public class CommandToMethodTranslator {
 
 		} else if (c.getName().endsWith("AndWait")) {
 			result = doAndWait(c);
+		} else if (c.getName().startsWith("pause")) {
+			result = "try {\n" + "\tThread.sleep(" + c.getValue() + ");\n"
+					+ "} catch(Exception e){\n" + "\t// do nothing\n" + "}\n";
 		}
 
 		if (result == null) {
