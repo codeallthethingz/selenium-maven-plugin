@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.wonderant</groupId>
 	<artifactId>selenium-maven-plugin</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.6</version>
 	<packaging>maven-plugin</packaging>
 	<name>Selenium Maven Mojo</name>
 	<description>Mojo to generate unit tests from selenium IDE html files</description>

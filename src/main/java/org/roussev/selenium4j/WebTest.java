@@ -91,7 +91,7 @@ public class WebTest {
 
 	private List<String> getBrowserExe() {
 		if (FirefoxDriver.class.getSimpleName().equals(driver)) {
-			return Arrays.asList("firefox.exe");
+			return Arrays.asList("firefox.exe", "firefox", "firefox-bin");
 		} else if (ChromeDriver.class.getSimpleName().equals(driver)) {
 			return Arrays.asList("chromedriver", "chrome.exe");
 		} else if (InternetExplorerDriver.class.getSimpleName().equals(driver)) {
