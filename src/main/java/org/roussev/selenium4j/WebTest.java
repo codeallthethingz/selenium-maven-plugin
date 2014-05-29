@@ -76,7 +76,7 @@ public class WebTest {
 			if (browserExes != null) {
 				for (String browserExe : browserExes) {
 					if (SystemUtils.IS_OS_WINDOWS){
-						Runtime.getRuntime().exec("pskill " + browserExe);
+						Runtime.getRuntime().exec("C:\\windows\\System32\\pskill " + browserExe);
 					} else {
 						Runtime.getRuntime().exec("killall " + browserExe);						
 					}
