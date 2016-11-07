@@ -17,7 +17,7 @@ import org.roussev.selenium4j.VelocityBean.DriverBean;
 /**
  * This is the main class iterating through Selenium HTML suite files,
  * discovering the HTML tests for each suite and transforming the tests and
- * suites into Java JUnti source files.
+ * suites into Java JUnit source files.
  * <p>
  * 
  * @author Atanas Roussev (http://www.roussev.org)
@@ -51,12 +51,14 @@ public class Transformer {
 		String fileName = f.getName();
 		fileName = fileName.substring(0, fileName.lastIndexOf('.'));
 		return fileName;
-
 	}
 
 	private final void read(MethodReader methodReader) throws Exception {
 		File dir = new File(TEST_DIR);
-
+		if (!dir.exists()) {
+			logger.warn("Directory " + TEST_DIR +" doesn't exist. Skipping conversion of HTML Selenium tests");
+			return;
+		}
 		FileFilter dirFilter = new FileFilter() {
 			public boolean accept(File file) {
 				return file.isDirectory() && !file.getName().equals(".svn");
