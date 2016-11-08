@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverBackedSelenium;
+//import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -99,12 +99,11 @@ public abstract class MainTestCase extends TestCase {
 					+ "' is not supported.");
 		}
 
-		WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(
-				webDriver, webSite);
+	//	WebDriverBackedSelenium selenium = new WebDriverBackedSelenium(	webDriver, webSite);
 
 		DriverSelenium driverSelenium = new DriverSelenium();
 		driverSelenium.setDriver(webDriver);
-		driverSelenium.setSelenium(selenium);
+	//	driverSelenium.setSelenium(selenium);
 		threadLocalSelenium.set(driverSelenium);
 
 		logger.debug("SeleniumSession started.");

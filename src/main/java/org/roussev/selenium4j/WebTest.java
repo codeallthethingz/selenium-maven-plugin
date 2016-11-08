@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverBackedSelenium;
+//import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -19,7 +19,7 @@ public class WebTest {
 
 	private static final Logger log = Logger.getLogger(WebTest.class);
 
-	private WebDriverBackedSelenium selenium;
+	//private WebDriverBackedSelenium selenium;
 	private String driver = null;
 
 	@Before
@@ -50,12 +50,12 @@ public class WebTest {
 					+ "' is not supported.");
 		}
 
-		selenium = new WebDriverBackedSelenium(webDriver, pWebsite);
+		//selenium = new WebDriver(webDriver, pWebsite);
 	}
 
-	public WebDriverBackedSelenium session() {
-		return selenium;
-	}
+	//public WebDriverBackedSelenium session() {
+	//	return selenium;
+	//}
 
 	public void verifyTrue(boolean b) {
 		if (!b) {

@@ -13,18 +13,20 @@ import org.roussev.selenium4j.Transformer;
 public class SeleniumMojo extends AbstractMojo {
 
 	/**
+	 * Where the selenium html tests are stored
 	 * @parameter default-value="${project.basedir}/src/test/selenium";
 	 */
 	private String seleniumTestDir;
 
 	/**
+	 * Where the generated selenium Java tests will be saved
 	 * @parameter default-value="${project.build.testSourceDirectory}"
 	 */
 	private String testSourceDirectory;
 
 	public void execute() throws MojoExecutionException {
-		getLog().info("reading selenium tests from: " + seleniumTestDir);
-		getLog().info("outputting unit test to: " + testSourceDirectory);
+		getLog().info("Reading Selenium tests from: " + seleniumTestDir);
+		getLog().info("Outputting unit tests to: " + testSourceDirectory);
 		if (System.getProperty("smoke") == null){
 			getLog().warn("smoke system property not set so these tests will not run, use -Dsmoke");
 		}
