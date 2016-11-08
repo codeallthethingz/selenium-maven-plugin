@@ -19,7 +19,7 @@
 		</developer>
 	</developers>
 	<properties>
-		<seleniumVersion>2.37.1</seleniumVersion>
+		<seleniumVersion>2.52.0</seleniumVersion>
 	</properties>
 	<licenses>
 		<license>
@@ -27,8 +27,6 @@
 			<url>http://en.wikipedia.org/wiki/WTFPL</url>
 		</license>
 	</licenses>
-
-
 	<profiles>
 		<profile>
 			<activation>
@@ -71,6 +69,11 @@
 								<artifactId>selenium-chrome-driver</artifactId>
 								<version>${seleniumVersion}</version>
 							</dependency>
+							<dependency>
+								<groupId>org.seleniumhq.selenium</groupId>
+								<artifactId>selenium-api</artifactId>
+								<version>${seleniumVersion}</version>
+							</dependency>
 						</dependencies>
 					</plugin>
 				</plugins>
@@ -110,6 +113,11 @@
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<version>${seleniumVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>

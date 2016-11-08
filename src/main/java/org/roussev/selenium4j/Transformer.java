@@ -59,19 +59,21 @@ public class Transformer {
 			logger.warn("Directory " + TEST_DIR +" doesn't exist. Skipping conversion of HTML Selenium tests");
 			return;
 		}
+
 		FileFilter dirFilter = new FileFilter() {
 			public boolean accept(File file) {
 				return file.isDirectory() && !file.getName().equals(".svn");
 			}
 		};
+		logger.info("Number of valid files is " +dir.listFiles(dirFilter).length);
 		for (File suiteDir : dir.listFiles(dirFilter)) {
+			logger.info("Examining Directory " + suiteDir);
 			doTests(suiteDir, methodReader, null);
 		}
 	}
 
-	private void doTests(File dir, MethodReader methodReader,
-			VelocityBean confBean_) throws Exception {
-		logger.debug("Reading " + dir + " tests...");
+	private void doTests(File dir, MethodReader methodReader, VelocityBean confBean_) throws Exception {
+		logger.info("Reading " + dir + " tests...");
 		VelocityBean velocityBean = new VelocityBean();
 		if (confBean_ != null) {
 			velocityBean.setSubstituteEntries(confBean_.getSubstituteEntries());
@@ -80,8 +82,7 @@ public class Transformer {
 
 		loadTestProperties(dir, velocityBean);
 
-		Collection<File> files = Arrays.asList(dir
-				.listFiles(new FilenameFilter() {
+		Collection<File> files = Arrays.asList(dir.listFiles(new FilenameFilter() {
 					public boolean accept(File pArg0, String pArg1) {
 						return pArg1.endsWith(".html");
 					}
@@ -105,13 +106,8 @@ public class Transformer {
 			classBean.setMethodBody(sb.toString());
 			classBean.setWebSite(velocityBean.getWebsite());
 			writeTestFile(dir, methodReader, classBean, velocityBean);
-			logger.info("Processed: " + f.getName() + " --> "
-					+ classBean.getClassName());
+			logger.info("Processed: " + f.getName() + " --> " + classBean.getClassName());
 		}
-
-		// createAllTests(classBeans, velocityBean, packName, dir.getName());
-		// doSetupTeardownTests(dir, methodReader, SETUP_DIR, velocityBean);
-		// doSetupTeardownTests(dir, methodReader, TEARDOWN_DIR, velocityBean);
 	}
 
 	private String clean(String pClassName) {
@@ -176,18 +172,13 @@ public class Transformer {
 	static class DefaultMethodReader implements MethodReader {
 		private static final String S = File.separator;
 
-		public void read(File dir, String subPackage, ClassBean classBean,
-				DriverBean driverBean) throws Exception {
+		public void read(File dir, String subPackage, ClassBean classBean, DriverBean driverBean) throws Exception {
 			String dirName = new File(dir.getName() + S + subPackage).getName();
-			File packageDir = new File(TEST_BUILD_DIR + S
-					+ classBean.getPackageName() + S + dirName);
+			File packageDir = new File(TEST_BUILD_DIR + S + classBean.getPackageName() + S + dirName);
 			packageDir.mkdirs();
-			VelocityTestTranslator t = new VelocityTestTranslator(
-					SELENIUM_TEST_TEMPLATE);
+			VelocityTestTranslator t = new VelocityTestTranslator(SELENIUM_TEST_TEMPLATE);
 
-			t.doWrite(classBean, driverBean, dirName,
-					packageDir.getAbsolutePath() + S + classBean.getClassName()
-							+ ".java");
+			t.doWrite(classBean, driverBean, dirName, packageDir.getAbsolutePath() + S + classBean.getClassName() + ".java");
 		}
 	}
 

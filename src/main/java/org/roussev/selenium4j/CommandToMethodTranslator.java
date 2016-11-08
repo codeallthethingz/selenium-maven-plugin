@@ -4,7 +4,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.thoughtworks.selenium.Selenium;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 
 /**
  * This class translates each Selenium HTML command to a Java JUnit methods.
@@ -24,14 +25,16 @@ public class CommandToMethodTranslator {
 	private final static String WAIT_FOR_PAGE_TOLOAD = "30000";
 
 	private final static Map<String, Method> methods = new HashMap<String, Method>();
+	private static Logger logger = Logger.getLogger(CommandToMethodTranslator.class);
 
 	static {
 		init();
 	}
 
 	private static void init() {
-		Class<Selenium> selC = Selenium.class;
+		Class<WebDriver> selC = WebDriver.class;
 		for (Method m : selC.getMethods()) {
+			logger.info("method is " + m);
 			Class<?>[] types = m.getParameterTypes();
 			if (types.length == 0) {
 				methods.put(m.getName(), m);
@@ -47,11 +50,16 @@ public class CommandToMethodTranslator {
 	}
 
 	public static String discovery(Command c) {
+
+         return "cheese";
+        //old code below
+        /*
 		Method m = methods.get(c.getName());
 		if (m == null) {
 			return discoveryCustom(c);
 		}
 		return _session_getMethod(m, c) + ";";
+		*/
 	}
 
 	/**
@@ -159,8 +167,7 @@ public class CommandToMethodTranslator {
 		return result;
 	}
 
-	private static String doAssert(Command c, String Not,
-			boolean methodNotPresent) {
+	private static String doAssert(Command c, String Not, boolean methodNotPresent) {
 		String mName = c.getName().substring(("assert" + Not).length());
 		Method m = methods.get("is" + mName);
 		if (m != null) {
